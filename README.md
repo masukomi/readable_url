@@ -5,7 +5,7 @@ converts that to Markdown, and sends the results to Standard Out.
 
 
 
-``` text
+```
 USAGE: readable_url <-m|-h> <url/to/convert>
 	-m output markdown
 	-h output html
@@ -19,7 +19,7 @@ USAGE: readable_url <-m|-h> <url/to/convert>
 
 Requires [Rust](https://www.rust-lang.org/) and it's associated `cargo` utility.
 
-``` text
+```sh
 cargo install readable_url
 ```
 
