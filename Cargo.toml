@@ -3,11 +3,12 @@ name = "readable_url"
 authors=["Kay Rhodes <masukomi@masukomi.org>", "Jonas Kalderstam <jonas@cowboyprogrammer.org>"]
 description="Simplify URL content with Readability & optionally convert to Markdown."
 homepage="https://github.com/masukomi/readable_url"
+documentation="https://github.com/masukomi/readable_url"
 repository="https://github.com/masukomi/readable_url"
 readme="README.md"
 keywords=["html", "url", "plaintext", "markdown", "converter", "readability"]
-categories=["parsing", "text-processing"]
-license="MIT"
+categories=["parsing", "text-processing", "command-line-utilities"]
+license-file="LICENSE.md"
 version = "1.0.0"
 edition = "2021"
 
