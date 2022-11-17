@@ -1,25 +1,25 @@
-/* Archives an URL
+/* Downloads an URL, runs it through Readability,
+ * optionally converts it to markdown,
+ * and sends the results to standard out.
+ * */
 
- requirements:
- crates!
- html-> readibilty library: https://github.com/kumabook/readability
-	217 dependencies!!!
-
- Combine this with html2runes
- to convert an url to markdown
- https://gitlab.com/spacecowboy/html2runes
-*/
-
+extern crate readable_url;
+extern crate readability;
 
 use std::env;
 use std::str;
-extern crate readability;
+
 use readability::extractor;
+use readable_url::markdown;
 
 fn help() {
-	println!("USAGE: url_to_readability <url/to/convert>
-       Downloads the specified url, runs it throug
-       the readability algorithm, and prints to standard out.");
+	println!("USAGE: readable_url <-m|-h> <url/to/convert>
+       -m output markdown
+       -h output html
+
+       Downloads the specified url, runs it through
+       the readability algorithm, optionally converts to markdown
+       and prints the result to standard out.");
 }
 
 
@@ -32,9 +32,17 @@ fn main()  {
 	let args: Vec<String> = env::args().collect();
 
 	match args.len() {
-		2 => {
-			let raw_url = &args[1];
-			extract_content(raw_url);
+		3 => {
+			let raw_flag = &args[1];
+			let markdown = if raw_flag == "-m" { true } else { false };
+			let raw_url = &args[2];
+			let html_content = extract_html_content(&raw_url);
+			if markdown {
+				let markdown_content = extract_markdown_content(html_content);
+				println!("{}", markdown_content);
+			} else {
+				println!("{}", html_content);
+			}
 		},
 		_ => {
 			help();
@@ -42,11 +50,15 @@ fn main()  {
 	}
 }
 
-fn extract_content(raw_url: &str) {
+fn extract_html_content(raw_url: &str) -> String {
 	match extractor::scrape(raw_url) {
       Ok(product) => {
-          println!("{}", product.content);
+				  return String::from(product.content);
       },
-      Err(_) => println!("error occured"),
+    Err(error) => {return format!("ERROR: {}", error);},
   }
+}
+
+fn extract_markdown_content(readable_html: String) -> String {
+	return markdown::convert_string(&readable_html);
 }
