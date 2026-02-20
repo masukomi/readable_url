@@ -13,11 +13,12 @@ version = "1.0.0"
 edition = "2021"
 
 [dependencies]
-clap = "2.20.5"
-html5ever = "0.13.0"
-html5ever-atoms = "0.2.0"
-readability = "^0"
-tendril = "0.2.3"
+clap = { version = "4.5", features = ["derive"] }
+html5ever = "0.38"
+markup5ever = "0.38"
+markup5ever_rcdom = "0.38"
+readability = "0.3"
+tendril = "0.5"
 
 [[bin]]
 path = "src/main.rs"
